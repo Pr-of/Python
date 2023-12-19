@@ -1,38 +1,40 @@
-#Iris dataset is a very simple dataset with 4 features of the flower (petal width length, sepal length/width. Using linear regression, we try to find a co-relation predict a future co-relation between the features in question.)
+#Iris dataset is a very simple dataset with 4 features/variables ;(petal width/length, sepal length/width) of the flower species/classes (Virginica, Setosa, Versicolor). 
+#Generally, using linear regression, we try to find a co-relation/predict a future outcome between the features in question.
+#R-squared is a statistical measure that indicates how much of the variation of a dependent variable is explained by an independent variable in a regression model.
+#In this example, we just derive co-relation between the various features with the help of R2 score
+
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 from sklearn import datasets
-from sklearn.metrics import mean_squared_error
 from sklearn.metrics import r2_score
 
 irisset= datasets.load_iris()
+X= irisset.data[:150,2:3]
+y= irisset.data[:150,3]
+#Train R2 score = 0.9271098389904927
+#There exists a "very strong" co-relation between petal length & petal width for all classes
+#By "observing the graph" in Spyder IDE we can further deduce that between petal length (4-6) & 
+#petal width(1.25-2.2) the species is "versicolor" and "virginica"
+
 #X= irisset.data[:50,0:1]
 #y= irisset.data[:50,1]
-#Train RMSE = 0.25134338318618216
 #Train R2 score = 0.5513755803923135
-#There exists a linear co-relation between sepal length & sepal width
+#There exists a co-relation between sepal length & width for the species "setosa (first 50 samples)"
 
 #X= irisset.data[:150,0:1]
 #y= irisset.data[:150,2]
 #y= irisset.data[:150,3]
-#Train RMSE = 0.862009880530452
 #Train R2 score = 0.759954645772515
-#There exists a "strong" linear co-relation between sepal length & petal length
-#Train RMSE = 0.4370526372123541
+#There exists a "strong" co-relation between sepal length & petal length for all classes
 #Train R2 score = 0.6690276860464135
-#There exists a linear co-relation between sepal length & petal width
+#There exists a co-relation between sepal length & petal width for all classes
 
-#X= irisset.data[:150,2:3]
-#y= irisset.data[:150,3]
-#Train RMSE = 0.20510316719883478
-#Train R2 score = 0.9271098389904927
-#There exists a "very strong" linear co-relation between petal length & petal width
+#X= irisset.data[52:150,2:3]
+#y= irisset.data[52:150,3]
+#Train R2 score = 0.6779495186269922
+#There exists a co-relation between petal length & petal width for classes "versicolor" & "virginica"
 
-X= irisset.data[52:150,2:3]
-y= irisset.data[52:150,3]
-#By "observing the graph" we can further deduce that between petal length (4-6) & petal width(1.25- 2.2) the species is
-# Species versicolor and virginica
 reg= LinearRegression().fit(X,y)
 w= reg.coef_
 c= reg.intercept_
@@ -49,8 +51,6 @@ plt.axis('tight')
 plt.show()
 
 yPredict = reg.predict(X)
-rmse = (np.sqrt(mean_squared_error(y, yPredict)))
 r2 = r2_score(y, yPredict)
-print('Train RMSE =', rmse)
 print('Train R2 score =', r2)
 print("\n")
